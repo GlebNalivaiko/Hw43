@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{'/view/set/' + ${id}}" th:object="${order}" method="post">
+<label>
+    <div style="display: inline-block">Название заказа:</div>
+  <input th:field="${order.nameOfOrder}" th:value="${order.nameOfOrder}" name="nameOfOrder" type="text"/>
+</label>
+    <select th:field="${order.price}" class="form-select" aria-label="Пример выбора по умолчанию">
+        <option value="" selected>Оплата...</option>
+        <option value="При получении">При получении</option>
+        <option value="Сейчас картой">Сейчас картой</option>
+    </select>
+<label style="display: inline-block">
+    <div style="display: inline-block">Страна доставки:</div>
+  <input style="display: inline-block" th:field="${order.country}" th:value="${order.country}" type="text"/>
+</label>
+<input type="submit" value="Submit">
+</form>
+</body>
+</html>

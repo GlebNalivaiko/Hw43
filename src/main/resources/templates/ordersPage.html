@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background-color: #0dcaf0;">
+<h1 style="text-align: center; size: 30px;color: brown">Привет, сделай заказ!</h1>
+<form th:object="${order}" th:action="@{/view}" method="post">
+    <select th:field="*{categoryOfOrder}" class="form-select" aria-label="Пример выбора по умолчанию">
+        <option value="" selected>Категория товара...</option>
+        <option value="Fishing And Hunt">Охота и рыбалка</option>
+        <option value="Home things">Хозяйственные товары</option>
+        <option value="Toys">Товары для детей</option>
+        <option value="Materials for building">Стройматериалы</option>
+        <option value="Gadgets">Цифровые устройства</option>
+        <option value="Cloth">Одежда</option>
+        <option value="Products">Продукты</option>
+    </select>
+    <label>
+        <input th:field="*{nameOfOrder}" type="text" placeholder="Имя товара..."/>
+    </label>
+    <select th:field="*{price}" class="form-select" aria-label="Пример выбора по умолчанию">
+        <option value="" selected>Оплата...</option>
+        <option value="При получении">При получении</option>
+        <option value="Сейчас картой">Сейчас картой</option>
+    </select>
+    <label>
+        <input th:field="*{country}" type="text" placeholder="Укажите страну доставки..."/>
+    </label>
+    <input type="submit" value="Submit">
+</form>
+<div style="color: #d63384;size: 30px" th:if="${orders==null}">У Вас пока нет заказов!</div>
+<div th:if="${orders!=null}">
+    <h1 style="color: #d63384;size: 30px">Ваши заказы!</h1>
+    <div th:each="current:${orders}">
+        <a id="liveToastBtn"
+           th:href="@{'/view/info'(id=${current.getId()})}">Info/
+            <a style="color: green" th:text="${current.getNameOfOrder()}"></a>
+            <a th:href="@{'/view/change/{id}'(id=${current.id})}">Change</a>
+            <a th:href="@{'/view/delete'(id=${current.getId()})}">Delete</a>
+        </a>
+    </div>
+</div>
+</body>
+</html>
